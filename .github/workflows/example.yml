@@ -1,13 +1,16 @@
 name: My First GitHub Action
+
 on: [push]
 
 jobs:
   example:
     runs-on: ubuntu-latest
+
     steps:
-      - name: - Step 1
+      - name: Step 1
         run: |
           echo "Hello, world!"
-      - name: - Step 2
+
+      - name: Step 2
         run: |
           echo "Goodbye, world!"
