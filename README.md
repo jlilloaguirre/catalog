@@ -1,16 +1,3 @@
-# Catalog
-
-Initial Django project setup for the DevOps diploma.
-
-## Current progress
-
-- Repository created and cloned locally
-- Python virtual environment created with `.venv`
-- Django project created with `bookcatalog`
-- `api` application created
-- `rest_framework` and `api` added to `INSTALLED_APPS`
-- Development server tested locally
-
 ## Local setup
 
 Activate the virtual environment:
@@ -25,8 +12,20 @@ Run the development server:
 python manage.py runserver
 ```
 
-Open the local server in the browser:
+The app will be available at:
 
 ```text
 http://127.0.0.1:8000/
+```
+
+The admin site will be available at:
+
+```text
+http://127.0.0.1:8000/admin/
+```
+
+Create an admin user:
+
+```bash
+python manage.py createsuperuser
 ```
