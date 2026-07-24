@@ -1,0 +1,15 @@
+
+.git
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+.vscode
+
+.venv
+
+db.sqlite3
+
+.claude
