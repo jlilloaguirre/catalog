@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  APP_GREETING: "Hello CCT students"
+  APP_ENVIRONMENT: "demo"
+  DEBUG: "true"
+ 
+  welcome.txt:
+    Hello from the Monday lecture!
+    This file was created from CinfigMap
+
+
