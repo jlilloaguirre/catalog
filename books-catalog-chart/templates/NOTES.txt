@@ -1,0 +1,1 @@
+Welcome to my CCT Django app! It's running on Kubernetes now.

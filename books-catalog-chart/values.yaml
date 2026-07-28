@@ -1,0 +1,73 @@
+# Number of Book Catalog pods
+replicaCount: 1
+
+# Container image
+image:
+  repository: ghcr.io/jlilloaguirre/catalog
+  pullPolicy: Always
+  tag: "main"
+
+# Secret used to pull the private image from GHCR
+imagePullSecrets:
+  - name: ghcr-secret
+
+# Chart naming overrides
+nameOverride: ""
+fullnameOverride: ""
+
+# Secret created by the PostgreSQL Helm chart
+loadSecretsFrom: books-database-postgresql
+
+# Environment variables used by the Django application
+environmentVariables:
+  - name: DATABASE_USER
+    value: books
+  - name: DATABASE_NAME
+    value: books
+  - name: DATABASE_HOST
+    value: books-database-postgresql-0.books-database-postgresql-hl.default.svc.cluster.local
+  - name: DEVELOPMENT_MODE
+    value: "false"
+
+# Ingress configuration
+ingress:
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+
+# Resource limits kept from your configuration
+resources:
+  limits:
+    cpu: 500m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+# Health probes kept from your configuration
+livenessProbe:
+  httpGet:
+    path: /api/
+    port: http
+
+readinessProbe:
+  httpGet:
+    path: /api/
+    port: http
+
+# Autoscaling disabled
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+# Optional Kubernetes configuration
+volumes: []
+
+volumeMounts: []
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
