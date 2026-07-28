@@ -5,7 +5,7 @@ metadata:
     app: nginx
   name: nginx-servers
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
       service: nginx-server
@@ -30,6 +30,8 @@ spec:
             - name: config-volume
               mountPath: /etc/demo-config
               readOnly: true
+            - name: pvc-volume
+              mountPath: /cache
 
         - image: busybox:1.36
           name: heartbeat-sidecar
@@ -57,3 +59,7 @@ spec:
 
         - name: heartbeat-logs
           emptyDir: {}
+
+        - name: pvc-volume
+          persistentVolumeClaim:
+            claimName: my-volume
