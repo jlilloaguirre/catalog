@@ -42,7 +42,21 @@ spec:
             - name: http
               containerPort: 8000
               protocol: TCP
+
           readinessProbe:
             httpGet:
-              path: /api/ # Replace with the endpoint to your health view
+              path: /api/
               port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+
+          livenessProbe:
+            httpGet:
+              path: /api/
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 3
