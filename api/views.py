@@ -48,6 +48,17 @@ class BookDetailView(APIView):
         serializer = BookSerializer(book)
         return Response(serializer.data)
 
+    def put(self, request, pk, *args, **kwargs):
+        book = Book.objects.filter(pk=pk).first()
+
+        if book is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = BookSerializer(book, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
     def delete(self, request, pk, *args, **kwargs):
         book = Book.objects.filter(pk=pk).first()
 
