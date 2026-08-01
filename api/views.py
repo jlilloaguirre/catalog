@@ -37,15 +37,26 @@ class BookView(APIView):
 
 
 class BookDetailView(APIView):
-    """ Retrieve a single book by its ID """
+    """Retrieve or delete a single book by its ID."""
 
     def get(self, request, pk, *args, **kwargs):
         book = Book.objects.filter(pk=pk).first()
+
         if book is None:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         serializer = BookSerializer(book)
         return Response(serializer.data)
-        
+
+    def delete(self, request, pk, *args, **kwargs):
+        book = Book.objects.filter(pk=pk).first()
+
+        if book is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        book.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 book_view = BookView.as_view()
 book_detail_view = BookDetailView.as_view()
