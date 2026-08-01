@@ -44,6 +44,24 @@ class BookViewTest(APITestCase):
         response = self.client.get(url, format='json')
 
         assert response.status_code == status.HTTP_404_NOT_FOUND
+    def test_delete_endpoint_removes_book(self):
+        book = Book.objects.create(
+            title="Delete Demo",
+            description="Delete Description",
+            author="Delete Author"
+        )
+
+        url = reverse("api:book-detail", kwargs={"pk": book.pk})
+        response = self.client.delete(url, format="json")
+
+        assert response.status_code == status.HTTP_204_NO_CONTENT
+        assert Book.objects.filter(pk=book.pk).exists() is False
+
+    def test_delete_endpoint_returns_404_for_missing_book(self):
+        url = reverse("api:book-detail", kwargs={"pk": 999999})
+        response = self.client.delete(url, format="json")
+
+        assert response.status_code == status.HTTP_404_NOT_FOUND
 
 
 class HealthViewTest(APITestCase):
