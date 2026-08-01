@@ -37,11 +37,11 @@ spec:
             - migrate
             - --noinput
 
-          envFrom:
-            - configMapRef:
-                name: {{ include "books-catalog-chart.fullname" . }}-envs
-
           env:
+            {{- range .Values.environmentVariables }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+            {{- end }}
             - name: DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
