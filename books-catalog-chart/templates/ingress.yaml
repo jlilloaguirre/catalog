@@ -9,13 +9,22 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  ingressClassName: traefik
   rules:
-    -  http:
+    - http:
         paths:
           - path: /api
             pathType: Prefix
             backend:
               service:
-                name: {{ include "books-catalog-chart.fullname" $ }}
+                name: {{ include "books-catalog-chart.fullname" . }}
+                port:
+                  number: 80
+
+          - path: /static
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "books-catalog-chart.fullname" . }}
                 port:
                   number: 80
